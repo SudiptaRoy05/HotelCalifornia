@@ -1,10 +1,8 @@
-
-
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 export default function Navbar() {
-    const { user } = useContext(AuthContext);AuthContext
+    const { user, logOut } = useContext(AuthContext);
 
     return (
         <div className="navbar bg-blue-600">
@@ -95,7 +93,16 @@ export default function Navbar() {
                                 alt={user.displayName}
                                 className="w-8 h-8 rounded-full"
                             />
+                            <span className="text-white font-medium">{user.displayName}</span>
                         </div>
+
+                        {/* Logout Button */}
+                        <button
+                            onClick={logOut}
+                            className="btn bg-red-500 text-white hover:bg-red-600 transition-colors py-2 px-4 rounded-lg"
+                        >
+                            Logout
+                        </button>
                     </>
                 )}
             </div>

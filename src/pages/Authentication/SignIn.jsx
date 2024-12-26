@@ -11,7 +11,7 @@ export default function SignIn() {
     const location = useLocation()
     const locState = location?.state || '/'
 
-    const { signIn } = useContext(AuthContext)
+    const { signIn, signInWithGoogle } = useContext(AuthContext)
 
     const handleSignIn = async e => {
         e.preventDefault();
@@ -20,7 +20,7 @@ export default function SignIn() {
         const password = form.get('password');
         console.log({ email, password })
         try {
-            
+
             await signIn(email, password)
             toast.success('Signin Successful')
             navigate(locState, { replace: true })
@@ -28,9 +28,21 @@ export default function SignIn() {
             console.log(err)
             toast.error(err?.message)
         }
-
-
     }
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle()
+
+            toast.success('Signin Successful')
+            navigate(locState, { replace: true })
+        } catch (err) {
+            console.log(err)
+            toast.error(err?.message)
+        }
+    }
+
+
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">
             <div className="flex flex-col lg:flex-row items-center w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
@@ -95,6 +107,7 @@ export default function SignIn() {
                         <div className="border-t border-gray-300 w-full"></div>
                     </div>
                     <button
+                        onClick={handleGoogleSignIn}
                         type="button"
                         className="w-full flex justify-center items-center bg-gray-100 text-gray-700 border rounded-lg py-2 hover:bg-gray-200 transition-colors"
                     >

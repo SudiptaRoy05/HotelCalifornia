@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 export default function SignUp() {
-    const { createUser, updateUserProfile, setUser } = useContext(AuthContext); 
+    const { createUser, updateUserProfile, setUser, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSignUp = async e => {
@@ -26,12 +26,24 @@ export default function SignUp() {
 
             // Debugging the toast.success issue
             toast.success('Signup Successful');  // This should trigger the success toast
-            navigate('/'); 
+            navigate('/');
         } catch (err) {
             console.log(err);
             toast.error(err?.message);
         }
     };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle()
+
+            toast.success('Signin Successful')
+            navigate('/')
+        } catch (err) {
+            console.log(err)
+            toast.error(err?.message)
+        }
+    }
 
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">
@@ -119,6 +131,7 @@ export default function SignUp() {
                         <div className="border-t border-gray-300 w-full"></div>
                     </div>
                     <button
+                        onClick={handleGoogleSignIn}
                         type="button"
                         className="w-full flex justify-center items-center bg-gray-100 text-gray-700 border rounded-lg py-2 hover:bg-gray-200 transition-colors"
                     >
