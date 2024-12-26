@@ -1,152 +1,104 @@
-export default function Navbar() {
-    return (
-        <div>
-            {/* Navbar Container */}
-            <nav className="navbar bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 px-6 py-4 shadow-lg">
-                <div className="container mx-auto flex justify-between items-center">
-                    {/* Logo */}
-                    <a
-                        href="/"
-                        className="text-2xl font-bold text-white tracking-wide hover:text-blue-200 transition-colors"
-                    >
-                        CorpBrand
-                    </a>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden lg:flex items-center space-x-6">
-                        <a
-                            href="/home"
-                            className="text-lg font-medium text-white hover:text-blue-200 transition-colors"
+
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
+
+export default function Navbar() {
+    const { user } = useContext(AuthContext);AuthContext
+
+    return (
+        <div className="navbar bg-blue-600">
+            {/* Navbar Start */}
+            <div className="navbar-start">
+                {/* Mobile Hamburger Menu */}
+                <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
                         >
-                            Home
-                        </a>
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M4 6h16M4 12h8m-8 6h16"
+                            />
+                        </svg>
+                    </div>
+
+                    {/* Mobile Dropdown Menu */}
+                    <ul
+                        tabIndex={0}
+                        className="menu menu-sm dropdown-content bg-white text-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow-md"
+                    >
+                        <li><a>Item 1</a></li>
+                        <li>
+                            <a>Parent</a>
+                            <ul className="p-2">
+                                <li><a>Submenu 1</a></li>
+                                <li><a>Submenu 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a>Item 3</a></li>
+                    </ul>
+                </div>
+
+                {/* Logo or Brand Name */}
+                <a className="btn btn-ghost text-white text-2xl font-semibold">Hotel California</a>
+            </div>
+
+            {/* Navbar Center for Desktop */}
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal px-1 space-x-6">
+                    <li><a className="text-white hover:text-gray-300 transition-colors">Home</a></li>
+                    <li>
+                        <details>
+                            <summary className="text-white hover:text-gray-300 transition-colors">Services</summary>
+                            <ul className="p-2 bg-white rounded-lg">
+                                <li><a className="text-gray-700 hover:bg-gray-100">Submenu 1</a></li>
+                                <li><a className="text-gray-700 hover:bg-gray-100">Submenu 2</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li><a className="text-white hover:text-gray-300 transition-colors">About</a></li>
+                </ul>
+            </div>
+
+            {/* Navbar End */}
+            <div className="navbar-end space-x-4">
+                {/* Conditional Rendering */}
+                {!user ? (
+                    <>
                         <a
-                            href="/about"
-                            className="text-lg font-medium text-white hover:text-blue-200 transition-colors"
+                            href="/signin"
+                            className="btn bg-gray-700 text-white hover:bg-gray-800 transition-colors py-2 px-4 rounded-lg"
                         >
-                            About
+                            Sign In
                         </a>
+
                         <a
                             href="/signup"
-                            className="px-5 py-2 bg-white text-blue-600 font-medium rounded-lg shadow hover:bg-blue-200 transition-all"
+                            className="btn bg-blue-500 text-white hover:bg-blue-600 transition-colors py-2 px-4 rounded-lg"
                         >
                             Sign Up
                         </a>
-
-                        {/* User Image Dropdown */}
-                        <details className="dropdown dropdown-end">
-                            <summary className="cursor-pointer flex items-center">
-                                <img
-                                    src="https://via.placeholder.com/40"
-                                    alt="User"
-                                    className="w-10 h-10 rounded-full border border-white hover:ring-2 hover:ring-blue-400 transition-all"
-                                />
-                            </summary>
-                            <ul className="dropdown-content menu p-3 shadow-md bg-white border rounded-lg w-48 text-gray-700 mt-3">
-                                <li>
-                                    <a
-                                        href="/profile"
-                                        className="py-2 px-3 hover:bg-gray-100 rounded-lg text-sm font-medium transition-all"
-                                    >
-                                        Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/settings"
-                                        className="py-2 px-3 hover:bg-gray-100 rounded-lg text-sm font-medium transition-all"
-                                    >
-                                        Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/logout"
-                                        className="py-2 px-3 hover:bg-red-100 text-red-600 rounded-lg text-sm font-medium transition-all"
-                                    >
-                                        Logout
-                                    </a>
-                                </li>
-                            </ul>
-                        </details>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <div className="lg:hidden">
-                        <label htmlFor="menu-toggle" className="text-white text-2xl cursor-pointer">
-                            &#9776;
-                        </label>
-                    </div>
-                </div>
-
-                {/* Mobile Dropdown Menu */}
-                <input type="checkbox" id="menu-toggle" className="hidden" />
-                <div className="lg:hidden">
-                    <ul className="menu menu-compact mt-3 p-3 shadow-md bg-white border rounded-lg text-gray-700">
-                        <li>
-                            <a
-                                href="/home"
-                                className="py-2 px-3 hover:bg-blue-100 text-lg font-medium transition-all"
-                            >
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/about"
-                                className="py-2 px-3 hover:bg-blue-100 text-lg font-medium transition-all"
-                            >
-                                About
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/signup"
-                                className="px-5 py-2 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition-all"
-                            >
-                                Sign Up
-                            </a>
-                        </li>
-                        <li>
-                            <details className="dropdown dropdown-end">
-                                <summary className="cursor-pointer flex items-center">
-                                    <img
-                                        src="https://via.placeholder.com/40"
-                                        alt="User"
-                                        className="w-10 h-10 rounded-full border border-white hover:ring-2 hover:ring-blue-400 transition-all"
-                                    />
-                                </summary>
-                                <ul className="dropdown-content menu p-3 shadow-md bg-white border rounded-lg w-48 text-gray-700 mt-3">
-                                    <li>
-                                        <a
-                                            href="/profile"
-                                            className="py-2 px-3 hover:bg-gray-100 rounded-lg text-sm font-medium transition-all"
-                                        >
-                                            Profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="/settings"
-                                            className="py-2 px-3 hover:bg-gray-100 rounded-lg text-sm font-medium transition-all"
-                                        >
-                                            Settings
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a
-                                            href="/logout"
-                                            className="py-2 px-3 hover:bg-red-100 text-red-600 rounded-lg text-sm font-medium transition-all"
-                                        >
-                                            Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </details>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+                    </>
+                ) : (
+                    <>
+                        {/* Display user image */}
+                        <div className="flex items-center space-x-2">
+                            <img
+                                src={user.photoURL || "default-avatar.png"}  // Default avatar if no photoURL is provided
+                                alt={user.displayName}
+                                className="w-8 h-8 rounded-full"
+                            />
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
     );
 }

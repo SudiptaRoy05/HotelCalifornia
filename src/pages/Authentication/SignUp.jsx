@@ -1,88 +1,99 @@
 import { Player } from "@lottiefiles/react-lottie-player";
-import signupAnimation from "../../assets/lottie/signup.json"; // Ensure the path is correct
+import signupAnimation from "../../assets/lottie/signup.json";
 import { FcGoogle } from "react-icons/fc";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function SignUp() {
+    const { createUser, updateUserProfile, setUser } = useContext(AuthContext); 
+    const navigate = useNavigate();
+
+    const handleSignUp = async e => {
+        e.preventDefault();
+        const form = new FormData(e.target);
+        const name = form.get('name');
+        const email = form.get('email');
+        const photoURL = form.get('photoURL');
+        const password = form.get('password');
+
+        try {
+            const result = await createUser(email, password);
+            console.log(result);
+            await updateUserProfile(name, photoURL);
+            setUser({ ...result.user, photoURL: photoURL, displayName: name });
+
+            // Debugging the toast.success issue
+            toast.success('Signup Successful');  // This should trigger the success toast
+            navigate('/'); 
+        } catch (err) {
+            console.log(err);
+            toast.error(err?.message);
+        }
+    };
+
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">
             <div className="flex flex-col lg:flex-row items-center w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
-                {/* Lottie Animation */}
                 <div className="w-full lg:w-1/2 flex justify-center mb-6 lg:mb-0">
                     <Player
                         autoplay
                         loop
-                        src={signupAnimation} // Use imported JSON animation
+                        src={signupAnimation}
                         className="w-80 h-80"
                     />
                 </div>
 
-                {/* Registration Form */}
                 <div className="w-full lg:w-1/2">
-                    {/* Page Title */}
                     <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
                         Register
                     </h2>
 
-                    <form>
-                        {/* Name Field */}
+                    <form onSubmit={handleSignUp}>
                         <div className="mb-4">
-                            <label
-                                htmlFor="name"
-                                className="block text-sm font-medium text-gray-700 mb-1"
-                            >
+                            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                                 Name
                             </label>
                             <input
                                 type="text"
-                                id="name"
+                                name="name"
                                 className="w-full border rounded-lg px-3 py-2 text-gray-700 focus:ring focus:ring-blue-400"
                                 placeholder="Enter your name"
                             />
                         </div>
 
-                        {/* Email Field */}
                         <div className="mb-4">
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-medium text-gray-700 mb-1"
-                            >
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                                 Email
                             </label>
                             <input
                                 type="email"
-                                id="email"
+                                name="email"
                                 className="w-full border rounded-lg px-3 py-2 text-gray-700 focus:ring focus:ring-blue-400"
                                 placeholder="Enter your email"
                             />
                         </div>
 
-                        {/* Photo URL Field */}
                         <div className="mb-4">
-                            <label
-                                htmlFor="photoURL"
-                                className="block text-sm font-medium text-gray-700 mb-1"
-                            >
+                            <label htmlFor="photoURL" className="block text-sm font-medium text-gray-700 mb-1">
                                 Photo URL
                             </label>
                             <input
                                 type="text"
-                                id="photoURL"
+                                name="photoURL"
                                 className="w-full border rounded-lg px-3 py-2 text-gray-700 focus:ring focus:ring-blue-400"
                                 placeholder="Enter photo URL"
                             />
                         </div>
 
-                        {/* Password Field */}
                         <div className="mb-4">
-                            <label
-                                htmlFor="password"
-                                className="block text-sm font-medium text-gray-700 mb-1"
-                            >
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                                 Password
                             </label>
                             <input
                                 type="password"
-                                id="password"
+                                name="password"
                                 className="w-full border rounded-lg px-3 py-2 text-gray-700 focus:ring focus:ring-blue-400"
                                 placeholder="Enter your password"
                             />
@@ -92,10 +103,9 @@ export default function SignUp() {
                             </p>
                         </div>
 
-                        {/* Submit Button */}
                         <div className="mb-4">
                             <button
-                                type="button"
+                                type="submit"
                                 className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
                             >
                                 Register
@@ -103,7 +113,6 @@ export default function SignUp() {
                         </div>
                     </form>
 
-                    {/* Google Sign-In Option */}
                     <div className="flex justify-center items-center my-4">
                         <div className="border-t border-gray-300 w-full"></div>
                         <p className="mx-4 text-gray-500">OR</p>
@@ -117,7 +126,6 @@ export default function SignUp() {
                         Sign in with Google
                     </button>
 
-                    {/* Link to Login Page */}
                     <p className="text-sm text-center text-gray-600 mt-6">
                         Already have an account?{" "}
                         <a
