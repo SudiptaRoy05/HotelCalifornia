@@ -1,8 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
     const { user, logOut } = useContext(AuthContext);
+    const links = <>
+        <NavLink to='/rooms'><li>Rooms</li></NavLink>
+
+    </>
 
     return (
         <div className="navbar bg-blue-600">
@@ -32,15 +37,7 @@ export default function Navbar() {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-white text-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow-md"
                     >
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <a>Parent</a>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
+                       {links}
                     </ul>
                 </div>
 
@@ -51,17 +48,7 @@ export default function Navbar() {
             {/* Navbar Center for Desktop */}
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 space-x-6">
-                    <li><a className="text-white hover:text-gray-300 transition-colors">Home</a></li>
-                    <li>
-                        <details>
-                            <summary className="text-white hover:text-gray-300 transition-colors">Services</summary>
-                            <ul className="p-2 bg-white rounded-lg">
-                                <li><a className="text-gray-700 hover:bg-gray-100">Submenu 1</a></li>
-                                <li><a className="text-gray-700 hover:bg-gray-100">Submenu 2</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li><a className="text-white hover:text-gray-300 transition-colors">About</a></li>
+                    {links}
                 </ul>
             </div>
 
