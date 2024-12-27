@@ -20,7 +20,7 @@ export default function AddedRoom() {
         const roomType = form.get('roomType');
         const bedType = form.get('bedType');
         const status = "Available";
-        const overAllRating = 0 ;
+        
         const review = [
             { "user": "John Doe", "comment": "Great room!", "rating": 4.5, "date": "2024-12-28" },
             { "user": "Jane Smith", "comment": "Needs improvement.", "rating": 4.5, "date": "2024-12-27" }
@@ -43,7 +43,7 @@ export default function AddedRoom() {
             userInfo,
             status,
             review,
-            overAllRating
+            
         };
 
         console.log('New Room:', newRoom);

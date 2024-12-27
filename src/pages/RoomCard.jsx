@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 export default function RoomCard({ room }) {
-    const { name, price, imageUrl, description, facilities, status } = room;
+    const { _id, name, price, imageUrl, description, facilities, status } = room;
 
     return (
         <div className="flex justify-center items-center mt-8">
@@ -45,12 +47,13 @@ export default function RoomCard({ room }) {
                     </div>
 
                     {/* Book Now Button */}
-                    <a
-                        href="#"
-                        className="block w-full py-3 text-center bg-blue-600 text-white font-semibold rounded-lg transition-colors hover:bg-blue-500"
-                    >
-                        Book Now
-                    </a>
+                    <Link to={`/roomDetails/${_id}`}>
+                        <button
+                            className="block w-full py-3 text-center bg-blue-600 text-white font-semibold rounded-lg transition-colors hover:bg-blue-500"
+                        >
+                            Book Now
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ export default function Map() {
                     width: "91.66%", // 11/12 width
                     maxWidth: "1200px",
                     margin: "0 auto",
-                    height: "500px",
+                    height: "400px", // Adjusted height to 400px
                     borderRadius: "15px", // Rounded corners
                     overflow: "hidden",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow
