@@ -5,6 +5,7 @@ import SignIn from "../pages/Authentication/SignIn";
 import Home from "../pages/Home";
 import Rooms from "../pages/Rooms";
 import AddedRoom from "../pages/AddedRoom";
+import MyAddedRooms from "../pages/MyAddedRooms";
 
 
 const router = createBrowserRouter([
@@ -21,11 +22,15 @@ const router = createBrowserRouter([
             },
             {
                 path:"/rooms",
-                element:<Rooms></Rooms>
+                element:<Rooms></Rooms>,
             },
             {
                 path:"/addedrooms",
                 element:<AddedRoom></AddedRoom>
+            },
+            {
+                path:"/myaddedroom",
+                element:<MyAddedRooms></MyAddedRooms>
             },
             {
                 path: '/signin',

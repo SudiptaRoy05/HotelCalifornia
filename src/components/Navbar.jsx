@@ -1,17 +1,28 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
     const { user, logOut } = useContext(AuthContext);
-    const links = <>
-        <NavLink to='/rooms'><li>Rooms</li></NavLink>
-        <NavLink to='/addedrooms'><li>AddedRoom</li></NavLink>
+    const [menuOpen, setMenuOpen] = useState(false); // Toggle dropdown menu
 
-    </>
+    const links = (
+        <>
+            <NavLink to="/rooms" className="hover:text-blue-300">
+                <li>Rooms</li>
+            </NavLink>
+            <NavLink to="/addedrooms" className="hover:text-blue-300">
+                <li>Added Rooms</li>
+            </NavLink>
+        </>
+    );
+
+    const handleProfileClick = () => {
+        setMenuOpen((prev) => !prev);
+    };
 
     return (
-        <div className="navbar bg-blue-600">
+        <div className="navbar bg-gradient-to-r from-blue-600 to-blue-800 text-white">
             {/* Navbar Start */}
             <div className="navbar-start">
                 {/* Mobile Hamburger Menu */}
@@ -38,7 +49,7 @@ export default function Navbar() {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-white text-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow-md"
                     >
-                       {links}
+                        {links}
                     </ul>
                 </div>
 
@@ -48,13 +59,11 @@ export default function Navbar() {
 
             {/* Navbar Center for Desktop */}
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 space-x-6">
-                    {links}
-                </ul>
+                <ul className="menu menu-horizontal px-1 space-x-6">{links}</ul>
             </div>
 
             {/* Navbar End */}
-            <div className="navbar-end space-x-4">
+            <div className="navbar-end space-x-4 relative">
                 {/* Conditional Rendering */}
                 {!user ? (
                     <>
@@ -75,22 +84,37 @@ export default function Navbar() {
                 ) : (
                     <>
                         {/* Display user image */}
-                        <div className="flex items-center space-x-2">
+                        <div
+                            className="flex items-center space-x-2 cursor-pointer"
+                            onClick={handleProfileClick}
+                        >
                             <img
-                                src={user.photoURL || "default-avatar.png"}  // Default avatar if no photoURL is provided
+                                src={user.photoURL || "default-avatar.png"} // Default avatar if no photoURL is provided
                                 alt={user.displayName}
-                                className="w-8 h-8 rounded-full"
+                                className="w-10 h-10 rounded-full border-2 border-white shadow-lg"
                             />
-                            <span className="text-white font-medium">{user.displayName}</span>
+                            <span className="hidden lg:block text-white font-medium">
+                                {user.displayName}
+                            </span>
                         </div>
 
-                        {/* Logout Button */}
-                        <button
-                            onClick={logOut}
-                            className="btn bg-red-500 text-white hover:bg-red-600 transition-colors py-2 px-4 rounded-lg"
-                        >
-                            Logout
-                        </button>
+                        {/* Dropdown Menu */}
+                        {menuOpen && (
+                            <div className="absolute top-12 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-48 p-4 z-10">
+                                <NavLink
+                                    to="/addedrooms"
+                                    className="block px-4 py-2 text-sm hover:bg-gray-100 rounded-md"
+                                >
+                                    My Added Rooms
+                                </NavLink>
+                                <button
+                                    onClick={logOut}
+                                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 rounded-md"
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        )}
                     </>
                 )}
             </div>
