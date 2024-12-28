@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import RoomCard from "./RoomCard";
+// import FeaturedRoomCard from "./FeaturedRoomCard";
 
 export default function FeaturedRooms() {
     const [rooms, setRooms] = useState([]);

@@ -7,6 +7,7 @@ import Rooms from "../pages/Rooms";
 import AddedRoom from "../pages/AddedRoom";
 import MyAddedRooms from "../pages/MyAddedRooms";
 import RoomDetails from "../pages/RoomDetails";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -23,19 +24,27 @@ const router = createBrowserRouter([
             },
             {
                 path: "/rooms",
-                element: <Rooms></Rooms>,
+                element: <PrivateRoute>
+                    <Rooms></Rooms>
+                </PrivateRoute>,
             },
             {
                 path: '/roomDetails/:id',
-                element: <RoomDetails></RoomDetails>,
+                element: <PrivateRoute>
+                    <RoomDetails></RoomDetails>
+                </PrivateRoute>,
             },
             {
                 path: "/addedrooms",
-                element: <AddedRoom></AddedRoom>
+                element: <PrivateRoute>
+                    <AddedRoom></AddedRoom>
+                </PrivateRoute>,
             },
             {
                 path: "/myaddedroom",
-                element: <MyAddedRooms></MyAddedRooms>
+                element: <PrivateRoute>
+                    <MyAddedRooms></MyAddedRooms>
+                </PrivateRoute>,
             },
             {
                 path: '/signin',

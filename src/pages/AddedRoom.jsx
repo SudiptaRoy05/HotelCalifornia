@@ -21,10 +21,7 @@ export default function AddedRoom() {
         const bedType = form.get('bedType');
         const status = "Available";
         
-        const review = [
-            { "user": "John Doe", "comment": "Great room!", "rating": 4.5, "date": "2024-12-28" },
-            { "user": "Jane Smith", "comment": "Needs improvement.", "rating": 4.5, "date": "2024-12-27" }
-        ]
+        
 
 
         const userInfo = {
@@ -42,8 +39,6 @@ export default function AddedRoom() {
             bedType,
             userInfo,
             status,
-            review,
-            
         };
 
         console.log('New Room:', newRoom);
