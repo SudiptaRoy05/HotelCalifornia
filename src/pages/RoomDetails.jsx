@@ -40,7 +40,7 @@ export default function RoomDetails() {
             try {
                 const { data } = await axios.get(`http://localhost:5000/review/${id}`);
                 if (data.length === 0) {
-                    toast.info("No reviews available for this room.");
+                    console.log('Faild to load data')
                 } else {
                     setReviews(data);
                 }
@@ -84,14 +84,36 @@ export default function RoomDetails() {
         setShowModal(true);
     };
 
-    const handleConfirmBooking = () => {
+    const handleConfirmBooking = async () => {
         if (!selectedDate) {
             toast.error("Please select a booking date!");
             return;
         }
-        toast.success(`Room booked for ${selectedDate.toLocaleDateString()}`);
-        setShowModal(false);
+
+        const bookingData = {
+            userName: user?.displayName || "Guest",
+            email: user?.email || "Not provided",
+            roomId: id,
+            roomName: name,
+            roomType,
+            bedType,
+            price,
+            bookingDate: selectedDate.toISOString(),
+        };
+
+        try {
+            const { data } = await axios.post('http://localhost:5000/add-booking', bookingData);
+
+            toast.success(`Room booked for ${selectedDate.toLocaleDateString()}`);
+            setShowModal(false);
+            console.log(data)
+
+        } catch (error) {
+            console.error("Error booking the room:", error);
+            toast.error("Something went wrong while booking the room. Please try again.");
+        }
     };
+
 
     const { name, price, description, imageUrl, facilities, roomType, bedType, status } = room;
 

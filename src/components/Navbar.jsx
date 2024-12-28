@@ -11,8 +11,8 @@ export default function Navbar() {
             <NavLink to="/rooms" className="hover:text-blue-300">
                 <li>Rooms</li>
             </NavLink>
-            <NavLink to="/addedrooms" className="hover:text-blue-300">
-                <li>Added Rooms</li>
+            <NavLink to="/mybooking" className="hover:text-blue-300">
+                <li>My Booking</li>
             </NavLink>
         </>
     );
@@ -88,24 +88,26 @@ export default function Navbar() {
                             className="flex items-center space-x-2 cursor-pointer"
                             onClick={handleProfileClick}
                         >
+                            <span className="hidden lg:block text-white font-medium">
+                                {user.displayName}
+                            </span>
                             <img
                                 src={user.photoURL || "default-avatar.png"} // Default avatar if no photoURL is provided
                                 alt={user.displayName}
                                 className="w-10 h-10 rounded-full border-2 border-white shadow-lg"
                             />
-                            <span className="hidden lg:block text-white font-medium">
-                                {user.displayName}
-                            </span>
+
                         </div>
 
                         {/* Dropdown Menu */}
                         {menuOpen && (
                             <div className="absolute top-12 right-0 bg-white text-gray-800 rounded-lg shadow-lg w-48 p-4 z-10">
+                                
                                 <NavLink
                                     to="/addedrooms"
                                     className="block px-4 py-2 text-sm hover:bg-gray-100 rounded-md"
                                 >
-                                    My Added Rooms
+                                    Add Rooms
                                 </NavLink>
                                 <button
                                     onClick={logOut}
