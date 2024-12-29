@@ -1,20 +1,20 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import { Outlet } from 'react-router-dom'
-import Footer from '../components/Footer'
+import React from 'react';
+import Navbar from '../components/Navbar';
+import { Outlet } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 export default function Main() {
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
             <header>
-                <Navbar></Navbar>
+                <Navbar />
             </header>
-            <main>
-                <Outlet></Outlet>
+            <main className="flex-grow">
+                <Outlet />
             </main>
-            <footer>
-                <Footer></Footer>
+            <footer className="bg-gray-800 text-white py-4 bottom-0 w-full">
+                <Footer />
             </footer>
         </div>
-    )
+    );
 }
