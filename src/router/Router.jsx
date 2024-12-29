@@ -9,13 +9,14 @@ import MyAddedRooms from "../pages/MyAddedRooms";
 import RoomDetails from "../pages/RoomDetails";
 import PrivateRoute from "./PrivateRoute";
 import MyBooking from "../pages/MyBooking";
+import Error from "../components/Error";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Main />,
-        errorElement: <h2>404 ERROR</h2>,
+        errorElement: <Error></Error>,
         children: [
             {
 

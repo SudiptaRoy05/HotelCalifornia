@@ -16,19 +16,22 @@ export default function RoomDetails() {
     const [reviews, setReviews] = useState([]);
     const [newReview, setNewReview] = useState({ user: "", email: "", comment: "", rating: 0 });
     const [showModal, setShowModal] = useState(false);
+    const [showReviewModal, setShowReviewModal] = useState(false);
+
     const [selectedDate, setSelectedDate] = useState(null);
     const { id } = useParams();
 
+    const fetchRoomData = async () => {
+        try {
+            const { data } = await axios.get(`http://localhost:5000/room-details/${id}`);
+            setRoom(data);
+        } catch (error) {
+            console.error("Error fetching room data:", error);
+            toast.error("Error fetching room details.");
+        }
+    };
+
     useEffect(() => {
-        const fetchRoomData = async () => {
-            try {
-                const { data } = await axios.get(`http://localhost:5000/room-details/${id}`);
-                setRoom(data);
-            } catch (error) {
-                console.error("Error fetching room data:", error);
-                toast.error("Error fetching room details.");
-            }
-        };
 
         if (id) {
             fetchRoomData();
@@ -69,16 +72,25 @@ export default function RoomDetails() {
             return;
         }
         try {
-            const reviewWithRoomId = { ...newReview, roomId: id };
+
+            const reviewWithRoomId = {
+                ...newReview,
+                roomId: id,
+                timestamp: new Date().toISOString(),
+            };
+
             await axios.post(`http://localhost:5000/add-review/${id}`, reviewWithRoomId);
+
             setReviews([...reviews, reviewWithRoomId]);
             setNewReview({ user: user?.displayName || "", email: user?.email || "", comment: "", rating: 0 });
+
             toast.success("Review added successfully!");
         } catch (error) {
             console.error("Error submitting review:", error);
             toast.error("Error submitting your review.");
         }
     };
+
 
     const handleBookNow = () => {
         setShowModal(true);
@@ -105,8 +117,12 @@ export default function RoomDetails() {
             const { data } = await axios.post('http://localhost:5000/add-booking', bookingData);
 
             toast.success(`Room booked for ${selectedDate.toLocaleDateString()}`);
-            await axios.patch(`http://localhost:5000/add-rooms/${id}`, status)
-            
+            await axios.patch(`http://localhost:5000/add-rooms/${id}`, status);
+            if (id) {
+
+                fetchRoomData();
+            }
+
             setShowModal(false);
             console.log(data)
 
@@ -145,17 +161,23 @@ export default function RoomDetails() {
                     </div>
                     <button
                         onClick={handleBookNow}
-                        className="block w-full py-3 text-center bg-blue-600 text-white font-semibold rounded-lg transition-colors hover:bg-blue-500 mt-6"
+                        disabled={status === "Booked"}
+                        className={`block w-full py-3 text-center font-semibold rounded-lg transition-colors mt-6 ${status === "Booked"
+                            ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                            : "bg-blue-600 text-white hover:bg-blue-500"
+                            }`}
                     >
-                        Book Now
+                        {status === "Booked" ? "Already Booked" : "Book Now"}
                     </button>
+
 
                     <div className="mt-4">
                         <h3 className="text-gray-800 font-semibold mb-2">Reviews:</h3>
                         {reviews.length > 0 ? (
                             reviews.map((rev, idx) => (
                                 <div key={idx} className="mb-4 border-b pb-4">
-                                    <p className="font-semibold">{rev.user} ({rev.email})</p>
+                                    <p className="font-semibold">{rev.user} <span className="text-gray-500 text-sm"> Reviewed on: {new Date(rev.timestamp).toLocaleString()}</span></p>
+
                                     <p className="text-gray-600">{rev.comment}</p>
                                     <ReactStars value={rev.rating} count={5} size={20} edit={false} activeColor="#ffd700" />
                                 </div>
@@ -165,7 +187,73 @@ export default function RoomDetails() {
                         )}
                     </div>
 
-                    <div className="mt-8">
+                    <button
+                        onClick={() => setShowReviewModal(true)}
+                        disabled={status === "Available"}
+                        className={`py-2 px-6 rounded-lg transition ${status === "Available"
+                            ? "bg-gray-400 text-white cursor-not-allowed"
+                            : "bg-blue-500 text-white hover:bg-blue-400"
+                            }`}
+                    >
+                        Give Review
+                    </button>
+
+
+                    <Modal
+                        isOpen={showReviewModal}
+                        onRequestClose={() => setShowReviewModal(false)}
+                        contentLabel="Add Review Modal"
+                        className="w-full max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg relative"
+                        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                    >
+                        <h3 className="text-gray-800 font-semibold mb-4">Add Your Review:</h3>
+                        {/* Username Field (Read-only) */}
+                        <div className="mb-4">
+                            <label className="font-semibold mb-2 block">Username:</label>
+                            <input
+                                type="text"
+                                value={user?.displayName}
+                                readOnly
+                                className="w-full p-3 border rounded-lg bg-gray-100 text-gray-700"
+                            />
+                        </div>
+                        {/* Comment Field */}
+                        <textarea
+                            placeholder="Your Comment"
+                            value={newReview.comment}
+                            onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                            className="w-full mb-4 p-3 border rounded-lg"
+                        ></textarea>
+                        {/* Rating Field */}
+                        <div className="mb-4">
+                            <label className="font-semibold mb-2 block">Your Rating:</label>
+                            <ReactStars
+                                value={newReview.rating}
+                                count={5}
+                                size={20}
+                                edit={true}
+                                activeColor="#ffd700"
+                                onChange={(newRating) => setNewReview({ ...newReview, rating: newRating })}
+                            />
+                        </div>
+                        <div className="flex justify-end gap-4">
+                            <button
+                                onClick={() => setShowReviewModal(false)}
+                                className="bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-400 transition"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleAddReview}
+                                className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-400 transition"
+                            >
+                                Submit Review
+                            </button>
+                        </div>
+                    </Modal>
+
+
+                    {/* <div className="mt-8">
                         <h3 className="text-gray-800 font-semibold mb-4">Add Your Review:</h3>
                         <textarea
                             placeholder="Your Comment"
@@ -190,7 +278,7 @@ export default function RoomDetails() {
                         >
                             Submit Review
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

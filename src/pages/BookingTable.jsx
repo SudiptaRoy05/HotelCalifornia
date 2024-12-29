@@ -1,31 +1,30 @@
 import axios from "axios";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { FiXCircle } from "react-icons/fi";
 import moment from "moment";
 
 export default function BookingTable({ booking, idx, refreshUi }) {
-    const [books, setBooks] = useState(booking);
+    const { _id, roomName, roomId, roomType, price, bookingDate } = booking;
 
-    const { _id, roomName, roomType, price, bookingDate } = books;
-
-    const handleCancel = async (id, status) => {
+    // Handle booking cancellation
+    const handleCancel = async (id, roomId, status) => {
         try {
-            // Delete the booking
+            // Cancel the booking
             await axios.delete(`http://localhost:5000/cancle-booking/${id}`);
-
-            // Update room status to 'Available'
-            const response = await axios.patch(`http://localhost:5000/add-rooms/${id}`, status);
-            console.log(response.data);
-
             toast.success("Booking canceled successfully!");
+
+            // Update the room status to "Available"
+            const { data } = await axios.patch(`http://localhost:5000/add-rooms/${roomId}`, { status });
+            console.log(data)
+            // Refresh the UI (trigger parent component to refetch or update state)
             refreshUi();
         } catch (err) {
             toast.error(`An error occurred while canceling the booking: ${err.message}`);
         }
     };
 
-    const modernCancel = (id, status) => {
+    // Show confirmation toast before canceling
+    const modernCancel = (_id, roomId, status) => {
         toast((t) => (
             <div className="flex gap-3 items-center">
                 <div>
@@ -38,7 +37,7 @@ export default function BookingTable({ booking, idx, refreshUi }) {
                         className="bg-red-500 text-white px-3 py-1 rounded-md"
                         onClick={() => {
                             toast.dismiss(t.id);
-                            handleCancel(id, status);
+                            handleCancel(_id, roomId, status); // Proceed with cancellation
                         }}
                     >
                         Yes
@@ -47,7 +46,7 @@ export default function BookingTable({ booking, idx, refreshUi }) {
                 <div>
                     <button
                         className="bg-green-500 text-white px-3 py-1 rounded-md"
-                        onClick={() => toast.dismiss(t.id)}
+                        onClick={() => toast.dismiss(t.id)} // Close toast without canceling
                     >
                         Cancel
                     </button>
@@ -56,14 +55,15 @@ export default function BookingTable({ booking, idx, refreshUi }) {
         ));
     };
 
+    // Check if the booking can be canceled based on the cancellation deadline (24 hours before booking date)
     const canCancelBooking = () => {
-        // Booking date minus one day
         const cancellationDeadline = moment(bookingDate).subtract(1, "days");
         const today = moment();
 
-        return today.isBefore(cancellationDeadline);
+        return today.isBefore(cancellationDeadline); // Can cancel if today is before the cancellation deadline
     };
 
+    // Format the booking date for display
     const formattedDate = new Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "long",
@@ -80,7 +80,7 @@ export default function BookingTable({ booking, idx, refreshUi }) {
             <td className="px-4 py-3 border-t text-center">
                 {canCancelBooking() ? (
                     <button
-                        onClick={() => modernCancel(_id, { status: "Available" })}
+                        onClick={() => modernCancel(_id, roomId, "Available")}
                         className="flex items-center justify-center gap-1 text-red-600 hover:text-red-800 transition duration-300"
                         title="Cancel Booking"
                     >
