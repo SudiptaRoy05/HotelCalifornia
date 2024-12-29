@@ -8,6 +8,9 @@ export default function Navbar() {
 
     const links = (
         <>
+            <NavLink to="/" className="hover:text-blue-300">
+                <li>Home</li>
+            </NavLink>
             <NavLink to="/rooms" className="hover:text-blue-300">
                 <li>Rooms</li>
             </NavLink>

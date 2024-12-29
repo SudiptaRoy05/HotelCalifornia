@@ -84,7 +84,7 @@ export default function RoomDetails() {
         setShowModal(true);
     };
 
-    const handleConfirmBooking = async () => {
+    const handleConfirmBooking = async (status) => {
         if (!selectedDate) {
             toast.error("Please select a booking date!");
             return;
@@ -105,6 +105,8 @@ export default function RoomDetails() {
             const { data } = await axios.post('http://localhost:5000/add-booking', bookingData);
 
             toast.success(`Room booked for ${selectedDate.toLocaleDateString()}`);
+            await axios.patch(`http://localhost:5000/add-rooms/${id}`, status)
+            
             setShowModal(false);
             console.log(data)
 
@@ -217,7 +219,7 @@ export default function RoomDetails() {
                     />
                 </div>
                 <button
-                    onClick={handleConfirmBooking}
+                    onClick={() => handleConfirmBooking({ status: "Booked" })}
                     className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-400 transition"
                 >
                     Confirm Booking

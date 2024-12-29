@@ -41,6 +41,8 @@ const router = createBrowserRouter([
                     <MyBooking></MyBooking>
                 </PrivateRoute>,
             },
+
+
             {
                 path: "/addedrooms",
                 element: <PrivateRoute>
