@@ -8,6 +8,8 @@ import image from '../../src/assets/images/modal.jpg'
 import AllReview from "../components/AllReview";
 import { Helmet } from "react-helmet";
 import AmenitiesSection from "../components/AmenitiesSection";
+import LocalAreaSection from "./LocalAreaSection";
+
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,8 +71,12 @@ export default function Home() {
                 <section>
                     <AllReview></AllReview>
                 </section>
+               
                 <section>
                     <AmenitiesSection></AmenitiesSection>
+                </section>
+                <section>
+                    <LocalAreaSection></LocalAreaSection>
                 </section>
             </main>
         </div>
