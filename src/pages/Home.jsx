@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Map from "../components/map";
 import FeaturedRooms from "./FeaturedRooms";
 import image from '../../src/assets/images/modal.jpg'
+import AllReview from "../components/AllReview";
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +59,9 @@ export default function Home() {
                 </section>
                 <section>
                     <FeaturedRooms />
+                </section>
+                <section>
+                    <AllReview></AllReview>
                 </section>
             </main>
         </div>
