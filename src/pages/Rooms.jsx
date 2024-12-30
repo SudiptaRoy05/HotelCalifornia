@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RoomCard from "./RoomCard";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 export default function Rooms() {
     const [rooms, setRooms] = useState([]);
@@ -38,6 +39,10 @@ export default function Rooms() {
 
     return (
         <div className="w-full flex flex-col items-center py-12 bg-gray-50">
+            <Helmet>
+                <title>Rooms - Hotel California</title>
+                <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
+            </Helmet>
             {/* Filter Section */}
             <div className="bg-white shadow-md rounded-md p-6 mb-12 w-11/12 max-w-3xl">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Filter by Price</h2>

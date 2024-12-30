@@ -2,6 +2,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FiXCircle } from "react-icons/fi";
 import moment from "moment";
+import { Helmet } from "react-helmet";
 
 export default function BookingTable({ booking, idx, refreshUi }) {
     const { _id, roomName, roomId, roomType, price, bookingDate } = booking;
@@ -72,6 +73,10 @@ export default function BookingTable({ booking, idx, refreshUi }) {
 
     return (
         <tr className="even:bg-gray-100 odd:bg-white hover:bg-gray-200 transition-colors duration-300">
+            <Helmet>
+                <title>Booking - Hotel California</title>
+                <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
+            </Helmet>
             <td className="px-4 py-3 border-t text-center">{idx + 1}</td>
             <td className="px-4 py-3 border-t">{roomName}</td>
             <td className="px-4 py-3 border-t">{roomType}</td>

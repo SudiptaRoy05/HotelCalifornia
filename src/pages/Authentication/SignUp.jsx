@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 export default function SignUp() {
     const { createUser, updateUserProfile, setUser, signInWithGoogle } = useContext(AuthContext);
@@ -47,6 +48,10 @@ export default function SignUp() {
 
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">
+            <Helmet>
+                <title>Register - Hotel California</title>
+                <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
+            </Helmet>
             <div className="flex flex-col lg:flex-row items-center w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
                 <div className="w-full lg:w-1/2 flex justify-center mb-6 lg:mb-0">
                     <Player

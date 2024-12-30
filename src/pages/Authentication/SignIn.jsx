@@ -1,58 +1,56 @@
+import React, { useContext, useEffect } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
+import { Helmet } from "react-helmet";
 import lottieLogin from "../../assets/lottie/login.json";
 import { FcGoogle } from "react-icons/fc";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import toast from "react-hot-toast";
 
 export default function SignIn() {
     const navigate = useNavigate();
-    const location = useLocation()
-    const locState = location?.state || '/'
+    const location = useLocation();
+    const locState = location?.state || "/";
 
-    const { signIn, signInWithGoogle } = useContext(AuthContext)
+    const { signIn, signInWithGoogle } = useContext(AuthContext);
 
-    const handleSignIn = async e => {
+    const handleSignIn = async (e) => {
         e.preventDefault();
         const form = new FormData(e.target);
-        const email = form.get('email');
-        const password = form.get('password');
-        console.log({ email, password })
+        const email = form.get("email");
+        const password = form.get("password");
+        console.log({ email, password });
         try {
-
-            await signIn(email, password)
-            toast.success('Signin Successful')
-            navigate(locState, { replace: true })
+            await signIn(email, password);
+            toast.success("Signin Successful");
+            navigate(locState, { replace: true });
         } catch (err) {
-            console.log(err)
-            toast.error(err?.message)
+            console.log(err);
+            toast.error(err?.message);
         }
-    }
+    };
 
     const handleGoogleSignIn = async () => {
         try {
-            await signInWithGoogle()
-
-            toast.success('Signin Successful')
-            navigate(locState, { replace: true })
+            await signInWithGoogle();
+            toast.success("Signin Successful");
+            navigate(locState, { replace: true });
         } catch (err) {
-            console.log(err)
-            toast.error(err?.message)
+            console.log(err);
+            toast.error(err?.message);
         }
-    }
-
+    };
 
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">
+            <Helmet>
+                <title>Login - Hotel California</title>
+                <meta name="description" content="Sign in to your Hotel California account and book your perfect stay." />
+            </Helmet>
+
             <div className="flex flex-col lg:flex-row items-center w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
                 <div className="w-full lg:w-1/2 flex justify-center mb-6 lg:mb-0">
-                    <Player
-                        autoplay
-                        loop
-                        src={lottieLogin}
-                        className="w-80 h-80"
-                    />
+                    <Player autoplay loop src={lottieLogin} className="w-80 h-80" />
                 </div>
 
                 <div className="w-full lg:w-1/2">
@@ -62,10 +60,7 @@ export default function SignIn() {
 
                     <form onSubmit={handleSignIn}>
                         <div className="mb-4">
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-medium text-gray-700 mb-1"
-                            >
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                                 Email
                             </label>
                             <input
@@ -77,10 +72,7 @@ export default function SignIn() {
                         </div>
 
                         <div className="mb-4">
-                            <label
-                                htmlFor="password"
-                                className="block text-sm font-medium text-gray-700 mb-1"
-                            >
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                                 Password
                             </label>
                             <input

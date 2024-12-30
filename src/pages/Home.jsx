@@ -6,6 +6,8 @@ import Map from "../components/map";
 import FeaturedRooms from "./FeaturedRooms";
 import image from '../../src/assets/images/modal.jpg'
 import AllReview from "../components/AllReview";
+import { Helmet } from "react-helmet";
+import AmenitiesSection from "../components/AmenitiesSection";
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +23,10 @@ export default function Home() {
 
     return (
         <div>
+            <Helmet>
+                <title>Home - Hotel California</title>
+                <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
+            </Helmet>
             {/* Modal */}
             {isModalOpen && (
                 <div className="modal modal-open">
@@ -62,6 +68,9 @@ export default function Home() {
                 </section>
                 <section>
                     <AllReview></AllReview>
+                </section>
+                <section>
+                    <AmenitiesSection></AmenitiesSection>
                 </section>
             </main>
         </div>

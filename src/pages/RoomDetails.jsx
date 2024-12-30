@@ -7,6 +7,7 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from "react-modal";
 import toast from "react-hot-toast";  // Importing React Hot Toast
+import { Helmet } from "react-helmet";
 
 Modal.setAppElement('#root');
 
@@ -137,6 +138,10 @@ export default function RoomDetails() {
 
     return (
         <div className="py-8 px-4">
+            <Helmet>
+                <title>Room Details - Hotel California</title>
+                <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
+            </Helmet>
             <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
                 <img className="w-full h-96 object-cover" src={imageUrl} alt={name} />
                 <div className="p-6">

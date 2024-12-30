@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 // import { useNavigate } from "react-router-dom";
 
 export default function AddedRoom() {
@@ -55,6 +56,10 @@ export default function AddedRoom() {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-bl from-indigo-400 via-purple-500 to-pink-500 p-6">
+            <Helmet>
+                <title>Add Room - Hotel California</title>
+                <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
+            </Helmet>
             <div className="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-8 transform transition hover:scale-105">
                 <h2 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-500 mb-8">
                     Add a New Room

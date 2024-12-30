@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import RoomCard from "./RoomCard";
+import FeaturedCard from "./FeaturedCard";
 // import FeaturedRoomCard from "./FeaturedRoomCard";
 
 export default function FeaturedRooms() {
@@ -24,7 +25,7 @@ export default function FeaturedRooms() {
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Featured Rooms</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
-                    rooms.map(room => <RoomCard key={room._id} room={room}></RoomCard>)
+                    rooms.map(room => <FeaturedCard key={room._id} room={room}></FeaturedCard>)
                 }
             </div>
         </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import BookingTable from "./BookingTable";
+import { Helmet } from "react-helmet";
 
 export default function MyBooking() {
     const [bookings, setBookings] = useState([]);
@@ -28,6 +29,10 @@ export default function MyBooking() {
 
     return (
         <div className="w-11/12 mx-auto my-8">
+            <Helmet>
+                <title>My Booking - Hotel California</title>
+                <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
+            </Helmet>
             <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">My Bookings</h1>
 
             <div className="overflow-x-auto shadow-lg rounded-lg">
