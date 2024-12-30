@@ -115,10 +115,11 @@ export default function RoomDetails() {
         };
 
         try {
-            const { data } = await axios.post('http://localhost:5000/add-booking', bookingData);
+            await axios.post('http://localhost:5000/add-booking', bookingData);
 
             toast.success(`Room booked for ${selectedDate.toLocaleDateString()}`);
-            await axios.patch(`http://localhost:5000/add-rooms/${id}`, status);
+            const {data} = await axios.patch(`http://localhost:5000/add-rooms/${id}`, status);
+            console.log(data)
             if (id) {
 
                 fetchRoomData();
