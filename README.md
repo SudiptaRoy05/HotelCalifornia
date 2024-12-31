@@ -4,7 +4,7 @@
 This project is a modern and interactive Hotel Booking Platform designed to provide users with a seamless experience for discovering and booking hotel rooms. It features secure authentication, a user-friendly interface, and robust functionality for a trustworthy and engaging experience.
 
 ## Live URL 🌐
-[Visit the Hotel Booking Platform](https://your-live-url-here.com)
+[Visit the Hotel Booking Platform](https://book-your-hotel-18c2b.web.app/)
 
 ## Key Features 📋
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop views.
