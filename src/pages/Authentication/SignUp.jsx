@@ -19,6 +19,15 @@ export default function SignUp() {
         const photoURL = form.get('photoURL');
         const password = form.get('password');
 
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if (!passwordRegex.test(password)) {
+            toast.error(
+                "Password must be at least 6 characters long, include at least one uppercase letter, and one lowercase letter."
+            );
+            return;
+        }
+
+
         try {
             const result = await createUser(email, password);
             console.log(result);
