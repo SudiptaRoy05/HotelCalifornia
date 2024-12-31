@@ -4,20 +4,21 @@ import toast from "react-hot-toast";
 import { FiXCircle } from "react-icons/fi";
 import moment from "moment";
 import { Helmet } from "react-helmet";
+import useSecureAxios from "../hooks/useSecureAxios";
 
 export default function BookingTable({ booking, idx, refreshUi }) {
     const { _id, roomName, roomId, roomType, price, bookingDate } = booking;
-
+    const axiosSecure = useSecureAxios()
     const [isModalOpen, setIsModalOpen] = useState(false); // State to handle modal visibility
     const [newDate, setNewDate] = useState(""); // State for new booking date
 
     // Handle booking cancellation
     const handleCancel = async (id, roomId, status) => {
         try {
-            await axios.delete(`http://localhost:5000/cancle-booking/${id}`);
+            await axiosSecure.delete(`${import.meta.env.VITE_API_URL}/cancle-booking/${id}`);
             toast.success("Booking canceled successfully!");
 
-            await axios.patch(`http://localhost:5000/add-rooms/${roomId}`, { status });
+            await axiosSecure.patch(`${import.meta.env.VITE_API_URL}/add-rooms/${roomId}`, { status });
             refreshUi(); // Refresh the UI
         } catch (err) {
             toast.error(`An error occurred while canceling the booking: ${err.message}`);
@@ -32,7 +33,7 @@ export default function BookingTable({ booking, idx, refreshUi }) {
         }
 
         try {
-            await axios.patch(`http://localhost:5000/update-date/${_id}`, { bookingDate: newDate });
+            await axiosSecure.patch(`${import.meta.env.VITE_API_URL}/update-date/${_id}`, { bookingDate: newDate });
             toast.success("Booking date updated successfully!");
             refreshUi(); // Refresh the UI after update
             setIsModalOpen(false); // Close the modal after update

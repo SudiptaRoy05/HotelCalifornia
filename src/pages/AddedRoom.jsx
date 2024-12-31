@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 // import { useNavigate } from "react-router-dom";
 
 export default function AddedRoom() {
+    const axiosSecure = useSecureAxios()
     const { user } = useContext(AuthContext);
     // const navigate = useNavigate();
 
@@ -21,8 +22,8 @@ export default function AddedRoom() {
         const roomType = form.get('roomType');
         const bedType = form.get('bedType');
         const status = "Available";
-        
-        
+
+
 
 
         const userInfo = {
@@ -45,7 +46,7 @@ export default function AddedRoom() {
         console.log('New Room:', newRoom);
 
         try {
-            await axios.post(`http://localhost:5000/add-rooms`, newRoom);
+            await axiosSecure.post(`${import.meta.env.VITE_API_URL}/add-rooms`, newRoom);
             toast.success('Room added successfully');
             // navigate('/myaddedroom');
             e.target.reset();

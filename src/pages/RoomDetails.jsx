@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -8,10 +7,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import Modal from "react-modal";
 import toast from "react-hot-toast";  // Importing React Hot Toast
 import { Helmet } from "react-helmet";
+import useSecureAxios from "../hooks/useSecureAxios";
 
 Modal.setAppElement('#root');
 
 export default function RoomDetails() {
+    const axiosSecure = useSecureAxios() 
     const { user } = useContext(AuthContext);
     const [room, setRoom] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -24,7 +25,7 @@ export default function RoomDetails() {
 
     const fetchRoomData = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/room-details/${id}`);
+            const { data } = await axiosSecure.get(`${import.meta.env.VITE_API_URL}/room-details/${id}`);
             setRoom(data);
         } catch (error) {
             console.error("Error fetching room data:", error);
@@ -42,7 +43,7 @@ export default function RoomDetails() {
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5000/review/${id}`);
+                const { data } = await axiosSecure.get(`${import.meta.env.VITE_API_URL}/review/${id}`);
                 if (data.length === 0) {
                     console.log('Faild to load data')
                 } else {
@@ -80,7 +81,7 @@ export default function RoomDetails() {
                 timestamp: new Date().toISOString(),
             };
 
-            await axios.post(`http://localhost:5000/add-review/${id}`, reviewWithRoomId);
+            await axiosSecure.post(`${import.meta.env.VITE_API_URL}/add-review/${id}`, reviewWithRoomId);
 
             setReviews([...reviews, reviewWithRoomId]);
             setNewReview({ user: user?.displayName || "", email: user?.email || "", comment: "", rating: 0 });
@@ -115,10 +116,10 @@ export default function RoomDetails() {
         };
 
         try {
-            await axios.post('http://localhost:5000/add-booking', bookingData);
+            await axiosSecure.post(`${import.meta.env.VITE_API_URL}/add-booking`, bookingData);
 
             toast.success(`Room booked for ${selectedDate.toLocaleDateString()}`);
-            const {data} = await axios.patch(`http://localhost:5000/add-rooms/${id}`, status);
+            const {data} = await axiosSecure.patch(`${import.meta.env.VITE_API_URL}/add-rooms/${id}`, status);
             console.log(data)
             if (id) {
 

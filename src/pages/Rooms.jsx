@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import RoomCard from "./RoomCard";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
+import useSecureAxios from "../hooks/useSecureAxios";
 
 export default function Rooms() {
+    const axiosSecure = useSecureAxios()
     const [rooms, setRooms] = useState([]);
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
@@ -12,7 +14,7 @@ export default function Rooms() {
     // Fetch room data from the server
     const fetchRoomData = async (filterParams = {}) => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/rooms`, {
+            const { data } = await axiosSecure.get(`${import.meta.env.VITE_API_URL}/rooms`, {
                 params: filterParams,
             });
             setRooms(data);
@@ -27,14 +29,14 @@ export default function Rooms() {
 
     const handleFilter = () => {
         fetchRoomData({ minPrice, maxPrice });
-        setMinPrice(""); // Reset min price input
-        setMaxPrice(""); // Reset max price input
+        setMinPrice(""); 
+        setMaxPrice(""); 
     };
 
     const resetUi = () => {
-        setMinPrice(""); // Clear min price
-        setMaxPrice(""); // Clear max price
-        fetchRoomData(); // Fetch default data
+        setMinPrice(""); 
+        setMaxPrice(""); 
+        fetchRoomData(); 
     };
 
     return (

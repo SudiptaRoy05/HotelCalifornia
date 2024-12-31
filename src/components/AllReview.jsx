@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import axios from "axios";
+import useSecureAxios from "../hooks/useSecureAxios";
 
 export default function Testimonials() {
+    const axiosSecure = useSecureAxios()
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
         const fetchReviews = async () => {
             try {
-                const { data } = await axios.get("http://localhost:5000/all-review");
+                const { data } = await axiosSecure.get(`${import.meta.env.VITE_API_URL}/all-review`);
                 setReviews(data); // Reviews are already sorted from the server
             } catch (error) {
                 console.error("Failed to fetch reviews:", error);

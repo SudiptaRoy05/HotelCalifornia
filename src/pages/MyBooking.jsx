@@ -1,16 +1,18 @@
-import axios from "axios";
+
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import BookingTable from "./BookingTable";
+import useSecureAxios from "../hooks/useSecureAxios";
 
 export default function MyBooking() {
     const [bookings, setBookings] = useState([]);
+    const axiosSecure = useSecureAxios()
 
     const { user } = useContext(AuthContext);
 
     const fetchMyBooking = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/my-booking/${user?.email}`);
+            const { data } = await axiosSecure.get(`${import.meta.env.VITE_API_URL}/my-booking/${user?.email}`);
             setBookings(data);
         } catch (error) {
             console.error("Error fetching bookings:", error);
