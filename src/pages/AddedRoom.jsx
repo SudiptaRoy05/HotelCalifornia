@@ -3,9 +3,11 @@ import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Helmet } from "react-helmet";
+import useSecureAxios from "../hooks/useSecureAxios";
 // import { useNavigate } from "react-router-dom";
 
 export default function AddedRoom() {
+
     const axiosSecure = useSecureAxios()
     const { user } = useContext(AuthContext);
     // const navigate = useNavigate();

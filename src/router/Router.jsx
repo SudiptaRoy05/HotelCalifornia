@@ -5,7 +5,6 @@ import SignIn from "../pages/Authentication/SignIn";
 import Home from "../pages/Home";
 import Rooms from "../pages/Rooms";
 import AddedRoom from "../pages/AddedRoom";
-import MyAddedRooms from "../pages/MyAddedRooms";
 import RoomDetails from "../pages/RoomDetails";
 import PrivateRoute from "./PrivateRoute";
 import MyBooking from "../pages/MyBooking";
@@ -50,12 +49,7 @@ const router = createBrowserRouter([
                     <AddedRoom></AddedRoom>
                 </PrivateRoute>,
             },
-            {
-                path: "/myaddedroom",
-                element: <PrivateRoute>
-                    <MyAddedRooms></MyAddedRooms>
-                </PrivateRoute>,
-            },
+           
             {
                 path: '/signin',
                 element: <SignIn></SignIn>
