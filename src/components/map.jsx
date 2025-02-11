@@ -3,38 +3,25 @@ export default function Map() {
     const zoomLevel = 16; // Closer view of the location
 
     return (
-        <div style={{ textAlign: "center", margin: "40px 0", fontFamily: "Arial, sans-serif" }}>
-            <h2 style={{ fontSize: "2rem", marginBottom: "10px", color: "#2C3E50" }}>Our Location</h2>
-            <p style={{ fontSize: "1rem", color: "#7F8C8D", marginBottom: "20px" }}>
-                Welcome to Hotel California. Below is our location on the map:
-            </p>
-            <div
-                style={{
-                    width: "91.66%", // 11/12 width
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                    height: "400px", // Adjusted height to 400px
-                    borderRadius: "15px", // Rounded corners
-                    overflow: "hidden",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow
-                    border: "1px solid #E0E0E0", // Light border for elegance
-                }}
-            >
-                <iframe
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        border: "none",
-                    }}
-                    frameBorder="0"
-                    scrolling="no"
-                    marginHeight="0"
-                    marginWidth="0"
-                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${hotelLocation.lng - 0.01
-                        },${hotelLocation.lat - 0.01},${hotelLocation.lng + 0.01},${hotelLocation.lat + 0.01
-                        }&layer=mapnik&marker=${hotelLocation.lat},${hotelLocation.lng}&zoom=${zoomLevel}`}
-                    allowFullScreen
-                ></iframe>
+        <div className="w-10/12 mx-auto">
+            <div className="text-center my-10 font-sans">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Our Location</h2>
+                <p className="text-gray-600 text-base md:text-lg mb-5">
+                    Welcome to Hotel California. Below is our location on the map:
+                </p>
+                <div className="w-full max-w-full mx-auto h-[400px] rounded-lg overflow-hidden shadow-lg border border-gray-300">
+                    <iframe
+                        className="w-full h-full border-none"
+                        frameBorder="0"
+                        scrolling="no"
+                        marginHeight="0"
+                        marginWidth="0"
+                        src={`https://www.openstreetmap.org/export/embed.html?bbox=${hotelLocation.lng - 0.01
+                            },${hotelLocation.lat - 0.01},${hotelLocation.lng + 0.01},${hotelLocation.lat + 0.01
+                            }&layer=mapnik&marker=${hotelLocation.lat},${hotelLocation.lng}&zoom=${zoomLevel}`}
+                        allowFullScreen
+                    ></iframe>
+                </div>
             </div>
         </div>
     );

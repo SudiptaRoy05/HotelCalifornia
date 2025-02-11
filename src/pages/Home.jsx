@@ -24,7 +24,7 @@ export default function Home() {
     };
 
     return (
-        <div>
+        <div className="bg-gray-300">
             <Helmet>
                 <title>Home - Hotel California</title>
                 <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
