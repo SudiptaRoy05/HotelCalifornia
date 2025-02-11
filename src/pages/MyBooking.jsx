@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import BookingTable from "./BookingTable";
@@ -6,7 +5,7 @@ import useSecureAxios from "../hooks/useSecureAxios";
 
 export default function MyBooking() {
     const [bookings, setBookings] = useState([]);
-    const axiosSecure = useSecureAxios()
+    const axiosSecure = useSecureAxios();
 
     const { user } = useContext(AuthContext);
 
@@ -26,37 +25,47 @@ export default function MyBooking() {
     }, [user?.email]);
 
     const refreshUi = () => {
-        fetchMyBooking(); 
+        fetchMyBooking();
     };
 
     return (
-        <div>
-            <h1 className="text-2xl font-bold mb-6">My Bookings</h1>
-            <div className="overflow-x-auto shadow-lg rounded-lg">
-                <table className="table-auto w-full border-collapse border border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+            <h1 className="text-3xl font-semibold text-gray-900 mb-6">My Bookings</h1>
+            <div className="overflow-x-auto bg-white shadow-lg rounded-lg border border-gray-200">
+                <table className="table-auto w-full border-collapse">
                     {/* Table Head */}
-                    <thead className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                    <thead className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
                         <tr>
-                            <th className="px-4 py-2 text-left">#</th>
-                            <th className="px-4 py-2 text-left">Room Name</th>
-                            <th className="px-4 py-2 text-left">Room Type</th>
-                            <th className="px-4 py-2 text-left">Price</th>
-                            <th className="px-4 py-2 text-left">Booking Date</th>
-                            <th className="px-4 py-2 text-left">Update Date</th>
-                            <th className="px-4 py-2 text-left">Action</th>
+                            <th className="px-6 py-3 text-left">#</th>
+                            <th className="px-6 py-3 text-left">Room Name</th>
+                            <th className="px-6 py-3 text-left">Room Type</th>
+                            <th className="px-6 py-3 text-left">Price</th>
+                            <th className="px-6 py-3 text-left">Booking Date</th>
+                            <th className="px-6 py-3 text-left">Update Date</th>
+                            <th className="px-6 py-3 text-left">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {/* Dynamic Rows */}
-                        {bookings.map((booking, idx) => (
-                            <BookingTable
-                                key={booking._id}
-                                idx={idx}
-                                booking={booking}
-                                refreshUi={refreshUi} 
-                            />
-                        ))}
-                    </tbody>
+                    {
+                        bookings?.length > 0 ? (
+                            <tbody>
+                                {/* Dynamic Rows */}
+                                {bookings.map((booking, idx) => (
+                                    <BookingTable
+                                        key={booking._id}
+                                        idx={idx}
+                                        booking={booking}
+                                        refreshUi={refreshUi}
+                                    />
+                                ))}
+                            </tbody>
+                        ) : (
+                            <tbody>
+                                <tr>
+                                    <td colSpan="7" className="text-center py-6 text-gray-500">No bookings available</td>
+                                </tr>
+                            </tbody>
+                        )
+                    }
                 </table>
             </div>
         </div>

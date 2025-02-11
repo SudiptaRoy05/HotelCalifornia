@@ -72,7 +72,7 @@ export default function RoomCard({ room }) {
                                 </p>
 
                                 {/* Price */}
-                                <div className="text-xl text-red-600 font-bold mb-4">${price} Per Night</div>
+                                <div className="text-xl text-blue-700 font-bold mb-4">${price} Per Night</div>
 
                                 {/* Facilities */}
                                 {/* <div className="mb-4 border-t border-b border-gray-200 py-4">

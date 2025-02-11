@@ -25,9 +25,6 @@ export default function AddedRoom() {
         const bedType = form.get('bedType');
         const status = "Available";
 
-
-
-
         const userInfo = {
             name: user?.displayName,
             email: user?.email,
@@ -58,13 +55,13 @@ export default function AddedRoom() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-bl from-indigo-400 via-purple-500 to-pink-500 p-6">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100 p-6">
             <Helmet>
                 <title>Add Room - Hotel California</title>
                 <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />
             </Helmet>
-            <div className="w-full max-w-2xl bg-white rounded-3xl shadow-xl p-8 transform transition hover:scale-105">
-                <h2 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-pink-500 mb-8">
+            <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-8">
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
                     Add a New Room
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -75,7 +72,7 @@ export default function AddedRoom() {
                             type="text"
                             name="name"
                             placeholder="Enter room name"
-                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         />
                     </div>
 
@@ -86,7 +83,7 @@ export default function AddedRoom() {
                             type="number"
                             name="price"
                             placeholder="Enter price"
-                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         />
                     </div>
 
@@ -97,7 +94,7 @@ export default function AddedRoom() {
                             name="description"
                             rows="4"
                             placeholder="Describe the room features"
-                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         ></textarea>
                     </div>
 
@@ -108,7 +105,7 @@ export default function AddedRoom() {
                             type="text"
                             name="imageUrl"
                             placeholder="Paste image URL here"
-                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         />
                     </div>
 
@@ -119,7 +116,7 @@ export default function AddedRoom() {
                             type="text"
                             name="facilities"
                             placeholder="e.g., Wi-Fi, Free Breakfast, Pool"
-                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         />
                     </div>
 
@@ -128,7 +125,7 @@ export default function AddedRoom() {
                         <label className="block text-lg font-medium text-gray-700">Room Type</label>
                         <select
                             name="roomType"
-                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         >
                             <option value="Deluxe">Deluxe</option>
                             <option value="Standard">Standard</option>
@@ -141,7 +138,7 @@ export default function AddedRoom() {
                         <label className="block text-lg font-medium text-gray-700">Bed Type</label>
                         <select
                             name="bedType"
-                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-xl shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="mt-2 block w-full px-4 py-3 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                         >
                             <option value="King">King</option>
                             <option value="Queen">Queen</option>
@@ -153,7 +150,7 @@ export default function AddedRoom() {
                     <div>
                         <button
                             type="submit"
-                            className="w-full px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-lg hover:shadow-2xl hover:from-pink-500 hover:to-purple-500 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-300"
+                            className="w-full px-6 py-3 text-lg font-semibold text-white bg-indigo-500 rounded-lg shadow-md hover:bg-indigo-600 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-indigo-300"
                         >
                             Add Room
                         </button>

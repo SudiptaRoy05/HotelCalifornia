@@ -12,7 +12,7 @@ export default function Main() {
             <main className="flex-grow">
                 <Outlet />
             </main>
-            <footer className="bg-gray-800 text-white py-4 bottom-0 w-full">
+            <footer className="text-white bottom-0 w-full">
                 <Footer />
             </footer>
         </div>

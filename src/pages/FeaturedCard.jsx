@@ -29,7 +29,7 @@ export default function FeaturedCard({ room }) {
                     <p className="text-sm text-gray-500 truncate">{description?.split(' ').slice(0, 15).join(' ')}...</p>
 
                     {/* Price */}
-                    <div className="text-lg font-bold text-red-500 mt-2">${price} / night</div>
+                    <div className="text-lg font-bold text-blue-600 mt-2">${price} / night</div>
 
                     {/* Facilities
                     <div className="mt-3">

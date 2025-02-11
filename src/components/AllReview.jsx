@@ -57,7 +57,7 @@ export default function Testimonials() {
     };
 
     return (
-        <div className="w-full py-16 bg-gray-300">
+        <div className="w-full py-16 bg-gray-100">
             <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">What Our Customers Say</h2>
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 {reviews.length > 0 ? (

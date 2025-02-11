@@ -14,9 +14,11 @@ export default function Navbar() {
             <NavLink to="/rooms" className="hover:text-blue-300">
                 <li>Rooms</li>
             </NavLink>
-            <NavLink to="/mybooking" className="hover:text-blue-300">
-                <li>My Booking</li>
-            </NavLink>
+            {user && (
+                <NavLink to="/mybooking" className="hover:text-blue-300">
+                    <li>My Booking</li>
+                </NavLink>
+            )}
         </>
     );
 
@@ -25,16 +27,16 @@ export default function Navbar() {
     };
 
     return (
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-            <div className="navbar w-10/12 mx-auto">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white fixed top-0 left-0 w-full z-50 shadow-md">
+            <div className="navbar w-10/12 mx-auto py-4">
                 {/* Navbar Start */}
                 <div className="navbar-start">
                     {/* Mobile Hamburger Menu */}
                     <div className="dropdown">
-                        <div tabIndex={0} role="button" className=" lg:hidden">
+                        <div tabIndex={0} role="button" className="lg:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
+                                className="h-6 w-6"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -100,7 +102,6 @@ export default function Navbar() {
                                     alt={user.displayName}
                                     className="w-10 h-10 rounded-full border-2 border-white shadow-lg"
                                 />
-
                             </div>
 
                             {/* Dropdown Menu */}
