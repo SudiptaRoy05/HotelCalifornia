@@ -9,6 +9,7 @@ import AllReview from "../components/AllReview";
 import { Helmet } from "react-helmet";
 import AmenitiesSection from "../components/AmenitiesSection";
 import LocalAreaSection from "./LocalAreaSection";
+import Blog from "./Blog";
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,6 +78,9 @@ export default function Home() {
                 </section>
                 <section>
                     <FeaturedRooms />
+                </section>
+                <section>
+                    <Blog></Blog>
                 </section>
                 <section>
                     <AllReview />

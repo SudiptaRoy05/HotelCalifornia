@@ -6,8 +6,6 @@ This project is a modern and interactive Hotel Booking Platform designed to prov
 
 ## Live URL 🌐
 
-[Visit the Hotel Booking Platform](https://book-your-hotel-18c2b.web.app/)
-
 ## Key Features 📋
 
 - **Responsive Design**: Fully optimized for mobile, tablet, and desktop views.
