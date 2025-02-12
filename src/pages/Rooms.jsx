@@ -6,10 +6,11 @@ import { Helmet } from "react-helmet";
 import useSecureAxios from "../hooks/useSecureAxios";
 
 export default function Rooms() {
-    const axiosSecure = useSecureAxios()
+    const axiosSecure = useSecureAxios();
     const [rooms, setRooms] = useState([]);
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
+    const [sortOrder, setSortOrder] = useState(""); // 'asc' or 'desc'
 
     // Fetch room data from the server
     const fetchRoomData = async (filterParams = {}) => {
@@ -29,14 +30,27 @@ export default function Rooms() {
 
     const handleFilter = () => {
         fetchRoomData({ minPrice, maxPrice });
-        setMinPrice(""); 
-        setMaxPrice(""); 
+        setMinPrice("");
+        setMaxPrice("");
     };
 
     const resetUi = () => {
-        setMinPrice(""); 
-        setMaxPrice(""); 
-        fetchRoomData(); 
+        setMinPrice("");
+        setMaxPrice("");
+        setSortOrder("");
+        fetchRoomData();
+    };
+
+    const handleSort = (order) => {
+        setSortOrder(order);
+        const sortedRooms = [...rooms].sort((a, b) => {
+            if (order === "asc") {
+                return a.price - b.price;
+            } else {
+                return b.price - a.price;
+            }
+        });
+        setRooms(sortedRooms);
     };
 
     return (
@@ -84,6 +98,24 @@ export default function Rooms() {
                         Reset
                     </button>
                 </div>
+            </div>
+
+            {/* Sorting Buttons */}
+            <div className="flex gap-4 mb-10">
+                <button
+                    onClick={() => handleSort("asc")}
+                    className={`px-6 py-3 font-semibold rounded-lg shadow transition duration-300 ${sortOrder === "asc" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
+                        }`}
+                >
+                    Sort Ascending
+                </button>
+                <button
+                    onClick={() => handleSort("desc")}
+                    className={`px-6 py-3 font-semibold rounded-lg shadow transition duration-300 ${sortOrder === "desc" ? "bg-green-600 text-white" : "bg-gray-200 text-gray-800"
+                        }`}
+                >
+                    Sort Descending
+                </button>
             </div>
 
             {/* Room Cards Section */}

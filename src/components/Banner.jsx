@@ -28,7 +28,7 @@ const Banner = () => {
     };
 
     return (
-        <div className="relative w-10/12 mx-auto">
+        <div className="relative w-10/12 mx-auto mt-16">
             <Slider {...settings}>
                 {/* Slide 1 */}
                 <div className="banner-slide w-full h-[300px] sm:h-[400px] md:h-[500px] text-white text-center py-12 sm:py-16 relative">

@@ -26,8 +26,8 @@ const attractions = [
 
 const LocalAreaSection = () => {
     return (
-        <div className="bg-gray-50 py-16">
-            <div className="container mx-auto px-6 w-11/12">
+        <div className="bg-gray-100 py-16">
+            <div className="container mx-auto px-6 w-10/12">
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-10">Explore Our Local Area</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {attractions.map((attraction, index) => (

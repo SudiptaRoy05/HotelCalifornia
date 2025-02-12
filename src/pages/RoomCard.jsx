@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function RoomCard({ room }) {
-    const { _id, name, price, imageUrl, description, status } = room;
+    const { _id, name, price, imageUrl, description, status } = room || {};
 
     return (
         <>

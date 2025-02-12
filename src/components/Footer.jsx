@@ -3,7 +3,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 export default function Footer() {
     return (
         <footer className="bg-blue-600 text-white py-8">
-            <div className="max-w-screen-xl mx-auto px-6 md:px-12">
+            <div className="max-w-screen-xl mx-auto md:px-12">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                     {/* Company Info */}
                     <div className="flex flex-col items-center md:items-start">

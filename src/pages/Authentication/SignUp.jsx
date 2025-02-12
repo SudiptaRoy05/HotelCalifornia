@@ -26,16 +26,12 @@ export default function SignUp() {
             );
             return;
         }
-
-
         try {
             const result = await createUser(email, password);
             console.log(result);
             await updateUserProfile(name, photoURL);
             setUser({ ...result.user, photoURL: photoURL, displayName: name });
-
-            // Debugging the toast.success issue
-            toast.success('Signup Successful');  // This should trigger the success toast
+            toast.success('Signup Successful'); 
             navigate('/');
         } catch (err) {
             console.log(err);

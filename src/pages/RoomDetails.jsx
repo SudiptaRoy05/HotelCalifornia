@@ -139,7 +139,7 @@ export default function RoomDetails() {
     const { name, price, description, imageUrl, facilities, roomType, bedType, status } = room;
 
     return (
-        <div className="py-8 px-4">
+        <div className="py-8 px-4 mt-20">
             <Helmet>
                 <title>Room Details - Hotel California</title>
                 <meta name="description" content="Create your account at Hotel California and start booking your perfect stay today." />

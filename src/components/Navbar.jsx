@@ -14,6 +14,16 @@ export default function Navbar() {
             <NavLink to="/rooms" className="hover:text-blue-300">
                 <li>Rooms</li>
             </NavLink>
+            <NavLink to="/blogs" className="hover:text-blue-300">
+                <li>Blogs</li>
+            </NavLink>
+            {
+                user && (
+                    <NavLink to="/addblogs" className="hover:text-blue-300">
+                        <li>Add Blogs</li>
+                    </NavLink>
+                )
+            }
             {user && (
                 <NavLink to="/mybooking" className="hover:text-blue-300">
                     <li>My Booking</li>
